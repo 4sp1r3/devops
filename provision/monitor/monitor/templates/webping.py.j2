@@ -1,0 +1,28 @@
+#!/bin/python
+
+import requests
+import smtplib
+
+FROM = 'me@gmail.com'
+TO = ["guzman.braso+sample-alert@batangamedia.com"]
+SUBJECT = "[WEBPing] Site nginx.devops.com | Bad response"
+TEXT = "There is a problem with the webpage nginx.devops.com"
+
+message = """\
+From: %s
+To: %s
+Subject: %s
+
+%s
+""" % (FROM, ", ".join(TO), SUBJECT, TEXT)
+
+
+r = requests.get('http://10.127.0.10/')
+
+if not (r.status_code == requests.codes.ok and r.text == "\nHello World\n"):
+    print "Page changed"
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.starttls()
+    server.login('me@gmail.com', 'password')
+    server.sendmail(FROM, TO, message)
+    server.quit()

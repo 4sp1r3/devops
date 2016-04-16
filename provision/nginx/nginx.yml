@@ -1,0 +1,9 @@
+---
+- name: Install Nginx in rp-proxy mode
+  hosts: nginx
+  remote_user: vagrant
+  become_method: sudo
+  become: yes
+
+  roles:
+    - nginx

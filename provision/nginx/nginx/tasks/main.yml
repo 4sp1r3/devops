@@ -1,0 +1,32 @@
+---
+- name: Install epel
+  yum: pkg=epel-release state=installed
+
+- name: Install nginx
+  yum: pkg=nginx state=installed
+
+- name: Start firewalld
+  service: name=firewalld state=started enabled=yes
+
+- name: insert firewalld rule for nginx
+  firewalld: port=80/tcp permanent=true state=enabled immediate=yes
+
+- name: Add nginx host configuration
+  template: >
+    src=nginx/templates/nginx.conf.j2
+    dest=/etc/nginx/nginx.conf
+    owner=root group=root mode=644
+  notify: restart nginx
+
+- name: Add nginx vhosts configuration
+  template: >
+    src=nginx/templates/vhost.conf.j2
+    dest=/etc/nginx/conf.d/vhost.conf
+    owner=root group=root mode=644
+  notify: restart nginx
+
+- name: nginx service state
+  service: name=nginx state=started enabled=yes
+
+- name: Touch SELinux
+  command: setsebool httpd_can_network_connect=1

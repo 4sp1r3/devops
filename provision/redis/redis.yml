@@ -1,0 +1,9 @@
+- name: Install redis
+  hosts: redis
+  remote_user: vagrant
+  become_method: sudo
+  #become_user: root
+  become: yes
+
+  roles:
+    - redis

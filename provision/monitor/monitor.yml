@@ -1,0 +1,9 @@
+---
+- name: Install the monitoring system
+  hosts: monitor
+  remote_user: vagrant
+  become_method: sudo
+  become: yes
+
+  roles:
+    - monitor

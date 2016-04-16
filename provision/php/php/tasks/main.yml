@@ -1,0 +1,36 @@
+---
+- name: Install epel
+  yum: pkg=epel-release state=installed
+
+- name: Install php
+  yum: pkg=php state=installed
+
+- name: Install redis opt
+  yum: pkg=php-pecl-redis state=installed
+
+- name: Install cgis
+  yum: pkg=php-fpm state=installed
+
+- name: Install apache (httpd)
+  yum: pkg=httpd state=installed
+
+- name: Install git
+  yum: pkg=git state=installed
+
+- name: Start firewalld
+  service: name=firewalld state=started enabled=yes
+
+- name: Insert firewalld rule for apache
+  firewalld: port=80/tcp permanent=true state=enabled immediate=yes
+
+- name: HTTP service state
+  service: name=httpd state=started enabled=yes
+
+- name: Clone sample-app
+  git: repo=https://github.com/Tombar/sample-app.git dest=/var/www/html/sample_app clone=yes update=no accept_hostkey=yes
+
+- name: Updating sample-app's configuration
+  command:  sed -i -e 's|      "host" => "127.0.0.1"|      "host" => "10.127.0.30"|' /var/www/html/sample_app/settings.php
+
+- name: Touch SELinux
+  command: setsebool httpd_can_network_connect=1

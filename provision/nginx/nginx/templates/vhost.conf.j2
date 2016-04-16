@@ -1,0 +1,15 @@
+upstream apachephp  {
+      server 10.127.0.20:80;
+}
+
+server {
+    listen          80 default_server;
+    server_name     nginx.devops.com;
+
+    location / {
+        proxy_pass  http://apachephp/sample_app/;
+
+        access_log  /var/log/nginx/nginx.devops.com_access.log;
+        error_log   /var/log/nginx/nginx.devops.com_error.log;
+    }
+}

@@ -1,0 +1,18 @@
+---
+- name: Install epel
+  yum: pkg=epel-release state=installed
+
+- name: Monitoring services
+  yum: pkg=python-pip state=installed
+
+- name: Install puython deps
+  command: pip install requests
+
+- name: Install webping
+  template: >
+    src=monitor/templates/webping.py.j2
+    dest=/home/vagrant/webping.py
+    owner=vagrant group=vagrant
+
+- name: Setup webping
+  cron: name="webping" hour="*" minute="*" weekday="*"  job="/bin/python /home/vagrant/webping.py" user=vagrant

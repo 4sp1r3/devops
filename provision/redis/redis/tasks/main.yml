@@ -1,0 +1,21 @@
+---
+- name: Install epel
+  yum: pkg=epel-release state=installed
+
+- name: Install redis
+  yum: pkg=redis state=installed
+
+- name: Configure redis
+  command: sed -i 's/bind 127.0.0.1/bind 10.127.0.30/g' /etc/redis.conf
+
+- name: Start firewalld
+  service: name=firewalld state=started enabled=yes
+
+- name: Insert firewalld rule for redis
+  firewalld: port=6379/tcp permanent=true state=enabled immediate=yes
+
+- name: Redis service state
+  service: name=redis state=started enabled=yes
+
+
+
