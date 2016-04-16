@@ -15,12 +15,12 @@ Vagrant.configure(2) do |config|
         vb.cpus = 2
     end
 
-    # node.vm.provision "ansible" do |ansible|
-    #   ansible.playbook = "provision/nginx/nginx.yml"
-    #   ansible.inventory_path = "provision/hosts"
-    #   ansible.limit = "nginx"
-    #   ansible.verbose = "v"
-    # end
+    node.vm.provision "ansible" do |ansible|
+     ansible.playbook = "provision/nginx/nginx.yml"
+     ansible.inventory_path = "provision/hosts"
+     ansible.limit = "nginx"
+     ansible.verbose = "v"
+    end
   end
   # ------------------------------------------------------------------------
 
@@ -33,12 +33,12 @@ Vagrant.configure(2) do |config|
         vb.cpus = 1
     end
 
-    # node.vm.provision "ansible" do |ansible|
-    #   ansible.playbook = "provision/php/php.yml"
-    #   ansible.inventory_path = "provision/hosts"
-    #   ansible.limit = "php"
-    #   ansible.verbose = "v"
-    # end
+    node.vm.provision "ansible" do |ansible|
+     ansible.playbook = "provision/php/php.yml"
+     ansible.inventory_path = "provision/hosts"
+     ansible.limit = "php"
+     ansible.verbose = "v"
+    end
   end
 
   # redis -------------------------------------------------------------------
@@ -50,12 +50,12 @@ Vagrant.configure(2) do |config|
         vb.cpus = 1
     end
 
-    # node.vm.provision "ansible" do |ansible|
-    #   ansible.playbook = "provision/redis/redis.yml"
-    #   ansible.inventory_path = "provision/hosts"
-    #   ansible.limit = "redis"
-    #   ansible.verbose = "v"
-    # end
+    node.vm.provision "ansible" do |ansible|
+     ansible.playbook = "provision/redis/redis.yml"
+     ansible.inventory_path = "provision/hosts"
+     ansible.limit = "redis"
+     ansible.verbose = "v"
+    end
   end
   #------------------------------------------------------------------------
 
@@ -68,12 +68,12 @@ Vagrant.configure(2) do |config|
         vb.cpus = 1
     end
 
-    # node.vm.provision "ansible" do |ansible|
-    #   ansible.playbook = "provision/monitor/monitor.yml"
-    #   ansible.inventory_path = "provision/hosts"
-    #   ansible.limit = "monitor"
-    #   ansible.verbose = "v"
-    # end
+    node.vm.provision "ansible" do |ansible|
+     ansible.playbook = "provision/monitor/monitor.yml"
+     ansible.inventory_path = "provision/hosts"
+     ansible.limit = "monitor"
+     ansible.verbose = "v"
+    end
   end
   #------------------------------------------------------------------------
 end
